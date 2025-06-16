@@ -5,8 +5,7 @@ ARG USER=www-data
 ENV WORKERS=1
 ENV MAX_REQUESTS=1
 
-RUN apt-get update && apt-get install -y \
-    install-php-extensions \
+RUN install-php-extensions \
     pcntl \
     pdo_mysql \
     mbstring \
@@ -15,12 +14,11 @@ RUN apt-get update && apt-get install -y \
     gd \
     opcache \
     redis \
-    zip \
-    nano \
-    unzip \
-    mariadb-client \
-    && rm -rf /var/lib/apt/lists/* \
-    && echo "memory_limit = 4096M" >> /usr/local/etc/php/conf.d/memory-limit.ini
+    zip
+
+RUN apt-get update && apt-get install -y \
+    mariadb-client nano unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN \
     # Use "adduser -D ${USER}" for alpine based distros
