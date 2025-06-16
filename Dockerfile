@@ -5,7 +5,8 @@ ARG USER=www-data
 ENV WORKERS=1
 ENV MAX_REQUESTS=1
 
-RUN install-php-extensions \
+RUN apt-get update && apt-get install -y \
+    install-php-extensions \
     pcntl \
     pdo_mysql \
     mbstring \
@@ -16,9 +17,7 @@ RUN install-php-extensions \
     redis \
     zip \
     nano \
-    unzip
-
-RUN apt-get update && apt-get install -y \
+    unzip \
     mariadb-client \
     && rm -rf /var/lib/apt/lists/* \
     && echo "memory_limit = 4096M" >> /usr/local/etc/php/conf.d/memory-limit.ini
