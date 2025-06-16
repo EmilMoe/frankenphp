@@ -14,11 +14,14 @@ RUN install-php-extensions \
     gd \
     opcache \
     redis \
-    zip
+    zip \
+    nano \
+    unzip
 
 RUN apt-get update && apt-get install -y \
     mariadb-client \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && echo "memory_limit = 4096M" >> /usr/local/etc/php/conf.d/memory-limit.ini
 
 RUN \
     # Use "adduser -D ${USER}" for alpine based distros
