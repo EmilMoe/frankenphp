@@ -14,7 +14,8 @@ RUN install-php-extensions \
     gd \
     opcache \
     redis \
-    zip
+    zip \
+    intl
 
 RUN apt-get update && apt-get install -y \
     mariadb-client nano unzip \
