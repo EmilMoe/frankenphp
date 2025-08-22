@@ -4,6 +4,7 @@ ARG USER=www-data
 
 ENV WORKERS=1
 ENV MAX_REQUESTS=1
+ENV PHP_MEMORY_LIMIT=512M
 
 RUN install-php-extensions \
     pcntl \
