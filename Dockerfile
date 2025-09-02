@@ -5,6 +5,7 @@ ARG USER=www-data
 ENV WORKERS=1
 ENV MAX_REQUESTS=1
 ENV PHP_MEMORY_LIMIT=512M
+ENV XDG_CONFIG_HOME=/config
 
 RUN install-php-extensions \
     pcntl \
@@ -22,13 +23,9 @@ RUN apt-get update && apt-get install -y \
     mariadb-client nano unzip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN \
-    # Use "adduser -D ${USER}" for alpine based distros
-    useradd -D ${USER}; \
-    # Add additional capability to bind to port 80 and 443
-    setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp; \
-    # Give write access to /data/caddy and /config/caddy
-    chown -R ${USER}:${USER} /data/caddy && chown -R ${USER}:${USER} /config/caddy
+RUN setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp && \
+    mkdir -p /data/caddy /config/caddy /config/psysh && \
+    chown -R ${USER}:${USER} /data/caddy /config/caddy /config/psysh
 
 USER ${USER}
 
