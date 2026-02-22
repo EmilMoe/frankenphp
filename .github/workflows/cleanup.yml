@@ -1,0 +1,21 @@
+name: Cleanup
+
+on:
+  schedule:
+    - cron: "0 4 * * 0"
+  workflow_dispatch:
+
+permissions:
+  packages: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete untagged versions (keep a small buffer)
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: frankenphp
+          package-type: container
+          delete-only-untagged-versions: true
+          min-versions-to-keep: 1
