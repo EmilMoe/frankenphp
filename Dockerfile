@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp
+FROM dunglas/frankenphp:1-php8.5
 
 ARG USER=www-data
 
@@ -7,7 +7,8 @@ ENV MAX_REQUESTS=1000
 ENV PHP_MEMORY_LIMIT=512M
 ENV XDG_CONFIG_HOME=/config
 
-RUN install-php-extensions \
+RUN "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    install-php-extensions \
     pcntl \
     pdo_mysql \
     mbstring \
