@@ -7,7 +7,7 @@ ENV MAX_REQUESTS=1000
 ENV PHP_MEMORY_LIMIT=512M
 ENV XDG_CONFIG_HOME=/config
 
-RUN "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     install-php-extensions \
     pcntl \
     pdo_mysql \
