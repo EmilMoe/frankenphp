@@ -8,6 +8,14 @@ ENV PHP_MEMORY_LIMIT=512M
 ENV XDG_CONFIG_HOME=/config
 
 RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+     && printf '%s\n' \
+    'memory_limit=${PHP_MEMORY_LIMIT}' \
+    'expose_php=Off' \
+    'opcache.memory_consumption=256' \
+    'opcache.interned_strings_buffer=32' \
+    'opcache.max_accelerated_files=50000' \
+    'opcache.validate_timestamps=0' \
+    > "$PHP_INI_DIR/conf.d/zz-base.ini"
     && install-php-extensions \
     pcntl \
     pdo_mysql \
