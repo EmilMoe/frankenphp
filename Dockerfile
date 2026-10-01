@@ -8,7 +8,7 @@ ENV PHP_MEMORY_LIMIT=512M
 ENV XDG_CONFIG_HOME=/config
 
 RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
-    install-php-extensions \
+    && install-php-extensions \
     pcntl \
     pdo_mysql \
     mbstring \
